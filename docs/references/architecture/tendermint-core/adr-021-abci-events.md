@@ -1,4 +1,4 @@
-# ADR 012: ABCI Events
+ # ADR 012: ABCI Events
 
 ## Changelog
 
