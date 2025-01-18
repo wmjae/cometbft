@@ -182,7 +182,7 @@ message SignHeartbeatReply {
 
 ## PubKey
 
-TBA -  this needs further thoughts: e.g. what todo like in the case of the KMS which holds
+TBA -  this needs further thoughts: e.g. what to do like in the case of the KMS which holds
 several keys? How does it know with which key to reply?
 
 ## SignBytes
