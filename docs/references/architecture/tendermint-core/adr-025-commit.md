@@ -106,7 +106,7 @@ issues and make it easy to see which validator's votes failed to be included.
 
 **Other BlockIDs**: We use a single byte to indicate which blockID a `CommitSig`
 is for. The only options are:
-    - `Absent` - no vote received from the this validator, so no signature
+    - `Absent` - no vote received from this validator, so no signature
     - `Nil` - validator voted Nil - meaning they did not see a polka in time
     - `Commit` - validator voted for this block
 
