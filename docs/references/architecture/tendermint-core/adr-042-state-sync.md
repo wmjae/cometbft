@@ -113,7 +113,7 @@ and [some learnings](https://docs.google.com/document/d/1npGTAa1qxe8EQZ1wG0a0Sip
 Note this still requires the honest majority peer assumption.
 
 As an eager protocol, warp-sync can efficiently compress larger, more
-predicatable chunks once per snapshot and service many new peers. By
+predictable chunks once per snapshot and service many new peers. By
 comparison lazy chunkers would have to compress each chunk at request
 time.
 
@@ -153,8 +153,8 @@ Majority of peer validation: A manifest file containing a list of chunks
 along with checksums of each chunk is downloaded from a
 trusted source. That source can be a community resource similar to
 [sum.golang.org](https://sum.golang.org) or downloaded from the majority
-of peers. One disadantage of the majority of peer security model is the
-vuliberability to eclipse attacks in which a malicious users looks to
+of peers. One disadvantage of the majority of peer security model is the
+vulnerability to eclipse attacks in which a malicious users looks to
 saturate a target node's peer list and produce a manufactured picture of
 majority.
 
@@ -165,8 +165,8 @@ ensure that creating snapshots does not put undo burden on block
 propsers by synchronizing snapshot creation and block creation. One
 approach to minimizing the burden is for snapshots for height
 `H` to be included in block `H+n` where `n` is some `n` block away,
-giving the block propser enough time to complete the snapshot
-asynchronousy.
+giving the block proposer enough time to complete the snapshot
+asynchronously.
 
 ## Proposal: Eager StateSync With Per Chunk Light Client Validation
 The conclusion after some consideration of the advantages/disadvances of
