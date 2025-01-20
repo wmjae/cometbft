@@ -97,7 +97,7 @@ Invalid headers result in dropping the witness, lack of response or not having t
 just as headers that have the same hash. Headers, however,
 of a different hash then trigger the detection process between the primary and that particular witness.
 
-This begins with verification of the witness's header via skipping verification which is run in tande
+This begins with verification of the witness's header via skipping verification which is run in tandem
 with locating the Light Bifurcation Point
 
 ![](img/light-client-detector.png)
@@ -134,7 +134,7 @@ trace that is directly after the targetBlock in height as the `ConflictingBlock`
 
 This function then returns the trace of blocks from the witness node between the common header and the
 divergent header of the primary as it is likely, as seen in the example to the right, that multiple
-headers where required in order to verify the divergent one. This trace will
+headers were required in order to verify the divergent one. This trace will
 be used later (as is also described later in this document).
 
 ![](img/bifurcation-point.png)
