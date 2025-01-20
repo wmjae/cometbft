@@ -40,7 +40,7 @@ In summary, this seemed like too much to ask of the application to implement onl
 - Light clients will still be able to detect amnesia attacks so long as the assumption of having at least one correct witness holds
 - Light clients will gossip the attack to witnesses and halt thus failing to validate the incorrect block (and therefore not being fooled)
 - Validators will propose and commit evidence of the amnesia attack on chain
-- No evidence will be passed to the application indicting any malicious validators, thus meaning that no malicious validators will be punished for performing the attack
+- No evidence will be passed to the application indicating any malicious validators, thus meaning that no malicious validators will be punished for performing the attack
 - If a light clients bubble of providers are all faulty the light client will falsely validate amnesia attacks as well as any other 1/3+ light client attack.
 
 ## Status
@@ -95,7 +95,7 @@ However, if our grocery owner verifies using the skipping algorithm, they will t
 
 However, there is a greater chance, especially if the light client is connected to quite a few other nodes that a divergence will be detected. The light client will figure out there was an amnesia attack and send the evidence to the witness to commit on chain. The grocery owner will see that verification failed and won't hand over the apples or carrots but also f won't be punished for their villainous behavior. This means that they can go over to the hairdressers and see if they can pull off the same stunt again.
 
-So this brings to the fore the current defenses that are in place. As long as there has not been a cabal of validators with greater than 1/3 power (or the trust level), the light clients verification algorithm will prevent any attempts to deceive it. Greater than this threshold and we rely on the detector as a second layer of defense to pick up on any attack. It's security is chiefly tied with the assumption that at least one of the witnesses is correct. If this fails then as illustrated above, the light client can be suceptible to amnesia (as well as equivocation and lunatic) attacks.
+So this brings to the fore the current defenses that are in place. As long as there has not been a cabal of validators with greater than 1/3 power (or the trust level), the light clients verification algorithm will prevent any attempts to deceive it. Greater than this threshold and we rely on the detector as a second layer of defense to pick up on any attack. It's security is chiefly tied with the assumption that at least one of the witnesses is correct. If this fails then as illustrated above, the light client can be susceptible to amnesia (as well as equivocation and lunatic) attacks.
 
 The outstanding problem, if we indeed consider it big enough to be one, therefore lies in the incentivisation mechanism which is how f and other malicious validators are punished. This is decided by the application but it's up to Tendermint to identify them. With other forms of attacks the evidence lies in the precommits. But because an amnesia attack uses precommits from another round, which is information that is discarded by the consensus engine once the block is committed, it is difficult to understand which validators were in fact faulty.
 
@@ -149,7 +149,7 @@ type AmnesiaEvidence struct {
 }
 ```
 
-If the node is not required to submit any proof than it will simply broadcast the `PotentialAmnesiaEvidence`, stamp the height that it received the evidence and begin to wait out the trial period. It will ignore other `PotentialAmnesiaEvidence` gossiped at the same height and round.
+If the node is not required to submit any proof then it will simply broadcast the `PotentialAmnesiaEvidence`, stamp the height that it received the evidence and begin to wait out the trial period. It will ignore other `PotentialAmnesiaEvidence` gossiped at the same height and round.
 
 If a node receives `AmnesiaEvidence` that contains a valid `ProofOfClockChange` it will add it to the evidence store and replace any PotentialAmnesiaEvidence of the same height and round. At this stage, an amnesia evidence with polc, it is ready to be submitted to the chin. If a node receives `AmnesiaEvidence` with an empty polc it will ignore it as each honest node will conduct their own trial period to be sure that time was given for any other honest nodes to respond.
 
@@ -164,7 +164,7 @@ Other validators will vote `nil` if:
 
 - The Amnesia Evidence is not valid
 - The Amnesia Evidence is not within their own trial period i.e. too soon.
-- They don't have the Amnesia Evidence and it is has an empty polc (each validator needs to run their own trial period of the evidence)
+- They don't have the Amnesia Evidence and it has an empty polc (each validator needs to run their own trial period of the evidence)
 - Is of an AmnesiaEvidence that has already been committed to the chain.
 
 Finally it is important to stress that the protocol of having a trial period addresses attacks where a validator voted again for a different block at a later round and time. In the event, however, that the validator voted for an earlier round after voting for a later round i.e. `VoteA.Timestamp < VoteB.Timestamp && VoteA.Round > VoteB.Round` then this action is inexcusable and can be punished immediately without the need of a trial period. In this case, PotentialAmnesiaEvidence will be instantly upgraded to AmnesiaEvidence.
